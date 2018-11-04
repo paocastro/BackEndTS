@@ -1,4 +1,5 @@
 const db = require('./Services/PostgreSQL/queries.js')
+const dbEventos = require('./Services/PostgreSQL/queriesEventos.js')
 
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -41,6 +42,7 @@ app.get('/', (request, response) => {
 app.get('/Personas', db.getPersonas)
 app.get('/Personas/:id', db.getPersonasByID)
 app.get('/PersonasByNdoc/:idColegio/:ndoc', db.getPersonasByNdoc)
+app.get('/EventosByTipo/:idColegio/:Tipo', dbEventos.getEventosByTipo)
 
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)
