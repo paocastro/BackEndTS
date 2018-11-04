@@ -40,6 +40,7 @@ app.get('/', (request, response) => {
 
 app.get('/Personas', db.getPersonas)
 app.get('/Personas/:id', db.getPersonasByID)
+app.get('/PersonasByNdoc/:idColegio/:ndoc', db.getPersonasByNdoc)
 
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)

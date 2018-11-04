@@ -29,6 +29,22 @@ const getPersonasByID = (request, response) => {
     })
   }
 
+  const getPersonasByNdoc = (request, response) => {
+    const idColegio = (request.params.idColegio)
+    const ndoc = (request.params.ndoc)
+
+  
+    pool.query('select * from GetUsuSistemasByNdoc($1, $2)', [idColegio,ndoc], (error, results) => {
+      if (error) {
+        throw error
+      }
+      response.status(200).json(results.rows)
+    })
+  }
+
+
+
+
   const createPersonas = (request, response) => {
     const { name, email } = request.body
   
@@ -44,4 +60,5 @@ const getPersonasByID = (request, response) => {
     getPersonas,
     getPersonasByID,
     createPersonas,
+    getPersonasByNdoc,
   }
