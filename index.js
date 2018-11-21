@@ -2,29 +2,19 @@ const db = require('./Services/PostgreSQL/queries.js')
 const dbEventos = require('./Services/PostgreSQL/queriesEventos.js')
 
 const express = require('express')
+
 const bodyParser = require('body-parser')
 const app = express()
 const port = 3000
 
+
 // Add headers
-app.use(function (req, res, next) {
-
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', '*');
-
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', true);
-
-    // Pass to next layer of middleware
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
     next();
-});
+  });
 
 
 app.use(bodyParser.json())
@@ -43,6 +33,14 @@ app.get('/Personas', db.getPersonas)
 app.get('/Personas/:id', db.getPersonasByID)
 app.get('/PersonasByNdoc/:idColegio/:ndoc', db.getPersonasByNdoc)
 app.get('/EventosByTipo/:idColegio/:Tipo', dbEventos.getEventosByTipo)
+
+app.post('/Personas', function(req, res) {
+    var oData = req.body
+    //console.log(req.body);
+    console.log(oData.Ndoc);
+	
+});
+
 
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)
